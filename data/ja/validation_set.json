@@ -1,0 +1,826 @@
+[
+    {
+        "water_level": 0,
+        "text": "雨全然降らないね・・・・"
+    },
+    {
+        "water_level": 0,
+        "text": "水が少ない"
+    },
+    {
+        "water_level": 0,
+        "text": "みずないじゃん"
+    },
+    {
+        "water_level": 0,
+        "text": "水が流れていない。雨乞いをしなくてはなりません。"
+    },
+    {
+        "water_level": 2,
+        "text": "川が死んじゃうよ。応援したいけど、どうしたらいいのかわからないよ。"
+    },
+    {
+        "water_level": 2,
+        "text": "ほとんどねーな"
+    },
+    {
+        "water_level": 2,
+        "text": "めっちゃ少なくない？"
+    },
+    {
+        "water_level": 2,
+        "text": "水少な！干からびそうやな"
+    },
+    {
+        "water_level": 4,
+        "text": "水少ない"
+    },
+    {
+        "water_level": 4,
+        "text": "少ないな"
+    },
+    {
+        "water_level": 4,
+        "text": "砂漠じゃん"
+    },
+    {
+        "water_level": 4,
+        "text": "水があまりなくて川底が露呈してるなー"
+    },
+    {
+        "water_level": 6,
+        "text": "ちょっと少なすぎるね"
+    },
+    {
+        "water_level": 6,
+        "text": "ほぼ干上がってるやん…魚も見えへんし、やばすぎるわこれ。"
+    },
+    {
+        "water_level": 6,
+        "text": "実質渇水"
+    },
+    {
+        "water_level": 6,
+        "text": "少なっ！"
+    },
+    {
+        "water_level": 8,
+        "text": "かなり減ってるやべえ"
+    },
+    {
+        "water_level": 8,
+        "text": "水が少なすぎて底が見えてしまっているなぁ"
+    },
+    {
+        "water_level": 8,
+        "text": "水がちょろちょろ流れてて、ほとんどない。"
+    },
+    {
+        "water_level": 8,
+        "text": "水少なくね"
+    },
+    {
+        "water_level": 10,
+        "text": "減ってるわ"
+    },
+    {
+        "water_level": 10,
+        "text": "すくなっ干上がるやん"
+    },
+    {
+        "water_level": 10,
+        "text": "少しづつ水位が上昇し始めてる。"
+    },
+    {
+        "water_level": 10,
+        "text": "水少ないなー"
+    },
+    {
+        "water_level": 12,
+        "text": "少ない"
+    },
+    {
+        "water_level": 12,
+        "text": "ちょろちょろ流れ"
+    },
+    {
+        "water_level": 12,
+        "text": "水位が低くて川底が見えるくらいだな"
+    },
+    {
+        "water_level": 12,
+        "text": "水すくなっ！水不足かな？"
+    },
+    {
+        "water_level": 14,
+        "text": "干上がりそうな位少ないけど…😅"
+    },
+    {
+        "water_level": 14,
+        "text": "ぜせらぎやな"
+    },
+    {
+        "water_level": 14,
+        "text": "川底が見える"
+    },
+    {
+        "water_level": 14,
+        "text": "かなり水が少ないな。川底が見える。"
+    },
+    {
+        "water_level": 16,
+        "text": "基準面からの高さを維持している"
+    },
+    {
+        "water_level": 16,
+        "text": "かなり干上がっとるな…細い流れがチョロチョロ残っとるだけや。"
+    },
+    {
+        "water_level": 16,
+        "text": "おだやかでいいな"
+    },
+    {
+        "water_level": 16,
+        "text": "なんか水不足で規制されそう"
+    },
+    {
+        "water_level": 18,
+        "text": "水の有効利用を考えんとアカンなぁ。"
+    },
+    {
+        "water_level": 18,
+        "text": "ちょろちょろ流れ"
+    },
+    {
+        "water_level": 18,
+        "text": "多過ぎず少な過ぎずいい塩梅かな。"
+    },
+    {
+        "water_level": 18,
+        "text": "渇水注意報"
+    },
+    {
+        "water_level": 18,
+        "text": "瀕死"
+    },
+    {
+        "water_level": 20,
+        "text": "今日の川は水位少なめで川底が見えるよ"
+    },
+    {
+        "water_level": 20,
+        "text": "いつも通りやなー"
+    },
+    {
+        "water_level": 20,
+        "text": "水位が少なくて穏やかな感じだなー"
+    },
+    {
+        "water_level": 20,
+        "text": "水少ねー。底見えてるし。"
+    },
+    {
+        "water_level": 22,
+        "text": "水が枯れそうですね"
+    },
+    {
+        "water_level": 22,
+        "text": "水少なっ"
+    },
+    {
+        "water_level": 22,
+        "text": "結構少ない"
+    },
+    {
+        "water_level": 22,
+        "text": "水位低いなぁ 雨不足？！"
+    },
+    {
+        "water_level": 24,
+        "text": "いつもと変わらないね"
+    },
+    {
+        "water_level": 24,
+        "text": "今は穏やかな流れだな～"
+    },
+    {
+        "water_level": 24,
+        "text": "からから"
+    },
+    {
+        "water_level": 24,
+        "text": "水位が低すぎる心配"
+    },
+    {
+        "water_level": 26,
+        "text": "低い"
+    },
+    {
+        "water_level": 26,
+        "text": "ふつう"
+    },
+    {
+        "water_level": 26,
+        "text": "穏やかだね"
+    },
+    {
+        "water_level": 26,
+        "text": "やや増えてきた"
+    },
+    {
+        "water_level": 28,
+        "text": "かなり水位が下がっていて、渇水が心配"
+    },
+    {
+        "water_level": 28,
+        "text": "いつもより多い"
+    },
+    {
+        "water_level": 28,
+        "text": "水がだいぶ少ないけど雨があまり降ってないからかなぁ"
+    },
+    {
+        "water_level": 28,
+        "text": "川が穏やかなに流れているな。"
+    },
+    {
+        "water_level": 30,
+        "text": "ゆっくりと川が流れてる。魚が泳いでいるのが見える。"
+    },
+    {
+        "water_level": 30,
+        "text": "川がさらさら流れてるの陽の光受けてきらきら光って良いなあ"
+    },
+    {
+        "water_level": 30,
+        "text": "普通かな"
+    },
+    {
+        "water_level": 30,
+        "text": "雨が降ったからこんなもんだろね"
+    },
+    {
+        "water_level": 32,
+        "text": "今日も川見てるけどいつも通り"
+    },
+    {
+        "water_level": 32,
+        "text": "いつもどおりだね"
+    },
+    {
+        "water_level": 32,
+        "text": "川が穏やかに流れてるの見てるとなごむ"
+    },
+    {
+        "water_level": 32,
+        "text": "雨降ったからね"
+    },
+    {
+        "water_level": 34,
+        "text": "普通だな"
+    },
+    {
+        "water_level": 34,
+        "text": "最近雨が降っていないせいか、水位が低い。"
+    },
+    {
+        "water_level": 34,
+        "text": "穏やかな流れを見ていると、こっちの気持ちも落ち着くね。"
+    },
+    {
+        "water_level": 34,
+        "text": "水量もたっぷりあって、流れも穏やかやなぁ。"
+    },
+    {
+        "water_level": 36,
+        "text": "気持ち水かさ多いけど、ゆったりな流れ"
+    },
+    {
+        "water_level": 36,
+        "text": "いつも通りのゆったりとした流れだね"
+    },
+    {
+        "water_level": 36,
+        "text": "流れが緩やかだなー"
+    },
+    {
+        "water_level": 36,
+        "text": "少ない"
+    },
+    {
+        "water_level": 38,
+        "text": "いつもよりは少ないけど流れてるな"
+    },
+    {
+        "water_level": 38,
+        "text": "いつも平和な日常に感謝"
+    },
+    {
+        "water_level": 38,
+        "text": "幸せな日だな"
+    },
+    {
+        "water_level": 38,
+        "text": "天気いいから干上がってるなぁ"
+    },
+    {
+        "water_level": 40,
+        "text": "このくらいの水位が一番安心かもね。きれいな川がいつまでも続きますように。"
+    },
+    {
+        "water_level": 40,
+        "text": "これくらいならまだ大丈夫かな。様子をみて判断しよう"
+    },
+    {
+        "water_level": 40,
+        "text": "ちょい少な目っす"
+    },
+    {
+        "water_level": 40,
+        "text": "普通の水位だね"
+    },
+    {
+        "water_level": 42,
+        "text": "川沿いの散歩気持ちいいな。魚いるかな？"
+    },
+    {
+        "water_level": 42,
+        "text": "穏やかだね"
+    },
+    {
+        "water_level": 42,
+        "text": "今日は 穏やかな 水位ですね"
+    },
+    {
+        "water_level": 42,
+        "text": "いつもの様子。"
+    },
+    {
+        "water_level": 44,
+        "text": "ちょうど釣りするのにいい感じかも。"
+    },
+    {
+        "water_level": 44,
+        "text": "水位は、正常で心配ありません"
+    },
+    {
+        "water_level": 44,
+        "text": "微妙に水が多いね"
+    },
+    {
+        "water_level": 44,
+        "text": "いつも通り。"
+    },
+    {
+        "water_level": 46,
+        "text": "ん?ちょっとずつキテるかな、でもまだ余裕あるね！"
+    },
+    {
+        "water_level": 46,
+        "text": "ちょうどよし"
+    },
+    {
+        "water_level": 46,
+        "text": "丁度よい水位です。"
+    },
+    {
+        "water_level": 46,
+        "text": "いつもより水位高いな"
+    },
+    {
+        "water_level": 48,
+        "text": "少し水位が上がってきてますね。でもちょうど良い感じがします。"
+    },
+    {
+        "water_level": 48,
+        "text": "普通の状態か"
+    },
+    {
+        "water_level": 48,
+        "text": "若干水位高いか？昨日雨降ってたもんな"
+    },
+    {
+        "water_level": 48,
+        "text": "けっこう水位増えてきたなー"
+    },
+    {
+        "water_level": 50,
+        "text": "少し水増えてない？"
+    },
+    {
+        "water_level": 50,
+        "text": "川の水けっこう増えたな～まさに川って感じ"
+    },
+    {
+        "water_level": 50,
+        "text": "ちょっと水が多いかな。雨のせいかな。"
+    },
+    {
+        "water_level": 50,
+        "text": "もうそろそろ雨が欲しいな。"
+    },
+    {
+        "water_level": 52,
+        "text": "普段より水位が少し高い気がするなぁ"
+    },
+    {
+        "water_level": 52,
+        "text": "水増えてきたな"
+    },
+    {
+        "water_level": 52,
+        "text": "いつもより水が多いね。雨降ったからか。"
+    },
+    {
+        "water_level": 52,
+        "text": "今日は随分水の量あるな〜半分以上あるなんて珍しい"
+    },
+    {
+        "water_level": 54,
+        "text": "ん？ちょっと水多くない？川が「昨日の雨、忘れてないよ」って言ってる。"
+    },
+    {
+        "water_level": 54,
+        "text": "水位が少し多いように見える。"
+    },
+    {
+        "water_level": 54,
+        "text": "いつもより水位が高いね"
+    },
+    {
+        "water_level": 54,
+        "text": "ちょっと水位が高いかもしれない"
+    },
+    {
+        "water_level": 56,
+        "text": "まだ、余裕かな？"
+    },
+    {
+        "water_level": 56,
+        "text": "水量多いな"
+    },
+    {
+        "water_level": 56,
+        "text": "だいぶ水が増えてきたね"
+    },
+    {
+        "water_level": 56,
+        "text": "水量が多いですね"
+    },
+    {
+        "water_level": 58,
+        "text": "増えてきた"
+    },
+    {
+        "water_level": 58,
+        "text": "今日は水多いな"
+    },
+    {
+        "water_level": 58,
+        "text": "水量が多いみたいですね"
+    },
+    {
+        "water_level": 58,
+        "text": "丁度いい水位の流れ"
+    },
+    {
+        "water_level": 60,
+        "text": "いつもよりちょっと高いね"
+    },
+    {
+        "water_level": 60,
+        "text": "水が少しずつ増えてきている感じはするね"
+    },
+    {
+        "water_level": 60,
+        "text": "すごい流れ"
+    },
+    {
+        "water_level": 60,
+        "text": "ちょっと水位が高いけれどこれだけ水があると安心"
+    },
+    {
+        "water_level": 62,
+        "text": "けっこう水位あるな"
+    },
+    {
+        "water_level": 62,
+        "text": "ちょっと増えてきたね"
+    },
+    {
+        "water_level": 62,
+        "text": "ちょっと水量多めだなあ"
+    },
+    {
+        "water_level": 62,
+        "text": "少し川の水が増えてきたな～"
+    },
+    {
+        "water_level": 64,
+        "text": "水多くない？氾濫大丈夫かな"
+    },
+    {
+        "water_level": 64,
+        "text": "だいぶ水増えてきたな、ちょっとドキドキするわ。雨続いたからなぁ。"
+    },
+    {
+        "water_level": 64,
+        "text": "結構多いな"
+    },
+    {
+        "water_level": 64,
+        "text": "水位が高いです。"
+    },
+    {
+        "water_level": 66,
+        "text": "まぁ普段通りかな"
+    },
+    {
+        "water_level": 66,
+        "text": "ちょっと多いな"
+    },
+    {
+        "water_level": 66,
+        "text": "若干水増えてない？雨降ったらヤバそう"
+    },
+    {
+        "water_level": 66,
+        "text": "昨日の雨のせいで水位が結構高いな、大丈夫かな？"
+    },
+    {
+        "water_level": 68,
+        "text": "まだ大丈夫だな"
+    },
+    {
+        "water_level": 68,
+        "text": "今日は水位ちょっと多めかな。"
+    },
+    {
+        "water_level": 68,
+        "text": "やばいおぼれる"
+    },
+    {
+        "water_level": 68,
+        "text": "こんなもうちゃう"
+    },
+    {
+        "water_level": 70,
+        "text": "水位がかなり高い。怖い…"
+    },
+    {
+        "water_level": 70,
+        "text": "氾濫のおそれあり、要注意！"
+    },
+    {
+        "water_level": 70,
+        "text": "水位が高めだけどまだ溢れなさそうな感じだね"
+    },
+    {
+        "water_level": 70,
+        "text": "水位かなり高い"
+    },
+    {
+        "water_level": 72,
+        "text": "かなり水位が高いぞ"
+    },
+    {
+        "water_level": 72,
+        "text": "水多くない？"
+    },
+    {
+        "water_level": 72,
+        "text": "いや多いだろ"
+    },
+    {
+        "water_level": 72,
+        "text": "多いなあ"
+    },
+    {
+        "water_level": 74,
+        "text": "そろそろあふれるよこれ"
+    },
+    {
+        "water_level": 74,
+        "text": "ずいぶん水かさが増してる"
+    },
+    {
+        "water_level": 74,
+        "text": "ちょっ！？やばくね？"
+    },
+    {
+        "water_level": 74,
+        "text": "危ないかもしれない"
+    },
+    {
+        "water_level": 76,
+        "text": "この水位はヤバイ・・・カッパも流されるレベル。"
+    },
+    {
+        "water_level": 76,
+        "text": "めっちゃ水多い"
+    },
+    {
+        "water_level": 76,
+        "text": "これ以上雨が降り続いたら氾濫しそう"
+    },
+    {
+        "water_level": 76,
+        "text": "結構溢れそうね"
+    },
+    {
+        "water_level": 78,
+        "text": "なんかだいぶ高くなってるね"
+    },
+    {
+        "water_level": 78,
+        "text": "多すぎ"
+    },
+    {
+        "water_level": 78,
+        "text": "大変だ"
+    },
+    {
+        "water_level": 78,
+        "text": "高い"
+    },
+    {
+        "water_level": 80,
+        "text": "あまり近づかないでおこう"
+    },
+    {
+        "water_level": 80,
+        "text": "かなり増えてるね"
+    },
+    {
+        "water_level": 80,
+        "text": "わー、大変だー"
+    },
+    {
+        "water_level": 80,
+        "text": "水位が高すぎて怖い・・・"
+    },
+    {
+        "water_level": 82,
+        "text": "かなり水が多いなー"
+    },
+    {
+        "water_level": 82,
+        "text": "いよいよ危険水域"
+    },
+    {
+        "water_level": 82,
+        "text": "なんかやばそう。このまま水増えたら怖い"
+    },
+    {
+        "water_level": 82,
+        "text": "あふれそうだから気をつけましょう"
+    },
+    {
+        "water_level": 84,
+        "text": "この雨で水位がかなり高くなっているぞ、やばいかも"
+    },
+    {
+        "water_level": 84,
+        "text": "これ以上高くなると、氾濫しそうで心配だね"
+    },
+    {
+        "water_level": 84,
+        "text": "なんかそろそろやべぇ領域に達する気がする。というかしてるかこれ"
+    },
+    {
+        "water_level": 84,
+        "text": "すごく多い"
+    },
+    {
+        "water_level": 86,
+        "text": "すごく多い"
+    },
+    {
+        "water_level": 86,
+        "text": "やばいってまじ"
+    },
+    {
+        "water_level": 86,
+        "text": "えっ？もしかして氾濫危機？"
+    },
+    {
+        "water_level": 86,
+        "text": "なんかそろそろやべぇ感じがする"
+    },
+    {
+        "water_level": 88,
+        "text": "かなりきとるな、こんな大量の女神さまの聖水なら顔で受け止めたい。"
+    },
+    {
+        "water_level": 88,
+        "text": "そろそろヤバイ"
+    },
+    {
+        "water_level": 88,
+        "text": "水溢れる"
+    },
+    {
+        "water_level": 88,
+        "text": "かなり水がいっぱいになってる。これ以上上がったらまずいんちゃう？"
+    },
+    {
+        "water_level": 90,
+        "text": "もう余裕がなくなってるのでは？指示待ち。"
+    },
+    {
+        "water_level": 90,
+        "text": "川がパンパン"
+    },
+    {
+        "water_level": 90,
+        "text": "川の水があふれるのも時間の問題、対策しないとやばいね。"
+    },
+    {
+        "water_level": 90,
+        "text": "避難準備"
+    },
+    {
+        "water_level": 92,
+        "text": "水があふれそうです。"
+    },
+    {
+        "water_level": 92,
+        "text": "今にも水が溢れてきそうな雰囲気、やばい。"
+    },
+    {
+        "water_level": 92,
+        "text": "やばい。これ以上増えたら決壊するんとちゃう？ 避難した方が良くない？"
+    },
+    {
+        "water_level": 92,
+        "text": "これもう災害起きてるでしょ！川氾濫してるって！"
+    },
+    {
+        "water_level": 94,
+        "text": "川がもう氾濫する。"
+    },
+    {
+        "water_level": 94,
+        "text": "もう溢れそう"
+    },
+    {
+        "water_level": 94,
+        "text": "あふれそう"
+    },
+    {
+        "water_level": 94,
+        "text": "めっちゃ穏やか"
+    },
+    {
+        "water_level": 96,
+        "text": "氾濫警報が出るレベルの水位だな！はよ逃げなあかん"
+    },
+    {
+        "water_level": 96,
+        "text": "これヤバいよね。道路冠水するんちゃう。。。"
+    },
+    {
+        "water_level": 96,
+        "text": "水があふれてるかも"
+    },
+    {
+        "water_level": 96,
+        "text": "今すぐにでも氾濫しそう！避難準備しとこう"
+    },
+    {
+        "water_level": 98,
+        "text": "怖い怖い"
+    },
+    {
+        "water_level": 98,
+        "text": "洪水になりそうで怖いから避難しよう"
+    },
+    {
+        "water_level": 98,
+        "text": "完全状態だ"
+    },
+    {
+        "water_level": 98,
+        "text": "もう限界ギリギリやん…これ以上降ったらやばそう、避難準備しとかないと！"
+    },
+    {
+        "water_level": 100,
+        "text": "川が氾濫して水しか見えない！"
+    },
+    {
+        "water_level": 100,
+        "text": "やばい。溢れてきそう"
+    },
+    {
+        "water_level": 100,
+        "text": "わー！もう限界じゃん"
+    },
+    {
+        "water_level": 100,
+        "text": "マックス"
+    },
+    {
+        "water_level": 100,
+        "text": "もう川から水があふれ出してる、やば～"
+    }
+]
