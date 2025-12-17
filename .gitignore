@@ -1,0 +1,13 @@
+# キャッシュ系
+.cache/
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# 大きいデータとか
+checkpoints/
+results/
+logs/
