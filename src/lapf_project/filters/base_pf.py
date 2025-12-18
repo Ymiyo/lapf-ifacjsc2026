@@ -25,7 +25,7 @@ class PFConfig:
     """
 
     num_particles: int
-    resample_threshold: Optional[float] = None
+    resample_threshold: Optional[float]
     device: torch.device | str
 
 
@@ -55,6 +55,7 @@ class BaseParticleFilter(ABC):
 
     def __init__(self, config: PFConfig) -> None:
         self.config = config
+
         self.device = torch.device(config.device)
 
         self.particles: Optional[Tensor] = None  # (M, N, n)
@@ -307,13 +308,16 @@ class BaseParticleFilter(ABC):
 
     def run(
         self,
-        controls: Optional[Tensor],
-        observations: Any,
+        T: int,
+        controls: Optional[Tensor] = None,
+        observations: Any = None,
     ) -> Tuple[Tensor, Tensor]:
         """Run the filter over a sequence of observations.
 
         Parameters
         ----------
+        T : int
+            Number of time steps.
         controls : Optional[Tensor]
             Sequence of control inputs. Can be:
                 - None (no control),
@@ -334,7 +338,6 @@ class BaseParticleFilter(ABC):
         if self.particles is None or self.weights is None:
             raise RuntimeError("Filter is not initialized. Call `initialize()` first.")
 
-        T = len(observations)
         M, N, n = self.particles.shape
 
         particles_hist = torch.zeros((T, M, N, n), device=self.device)
@@ -352,7 +355,7 @@ class BaseParticleFilter(ABC):
             else:
                 raise ValueError(f"Unexpected control shape: {controls.shape}")
 
-            obs_t = observations[t]
+            obs_t = observations[t] if observations is not None else None
             particles_t, weights_t = self.step(u_t, obs_t)
 
             particles_hist[t] = particles_t
@@ -368,7 +371,7 @@ class BaseParticleFilter(ABC):
         """Normalize weights along the particle dimension."""
         # weights: (M, N)
         sums = weights.sum(dim=1, keepdim=True)  # (M, 1)
-        return weights / (sums + 1e-30)
+        return weights / (sums + 1e-8)
 
     @staticmethod
     def _normalize_log_weights(log_weights: Tensor) -> Tensor:
@@ -377,4 +380,4 @@ class BaseParticleFilter(ABC):
         max_log, _ = torch.max(log_weights, dim=1, keepdim=True)  # (M, 1)
         w = torch.exp(log_weights - max_log)  # (M, N)
         sums = w.sum(dim=1, keepdim=True)  # (M, 1)
-        return w / (sums + 1e-30)
+        return w / (sums + 1e-8)

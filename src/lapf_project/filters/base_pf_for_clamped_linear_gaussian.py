@@ -28,8 +28,8 @@ class ClampedLinearGaussianPFConfig(PFConfig):
         Upper bound for state clamping.
     """
 
-    state_clamp_min: float = 0.0
-    state_clamp_max: float = 5.0
+    state_clamp_min: float
+    state_clamp_max: float
 
 
 class ClampedLinearGaussianPF(BaseParticleFilter):
@@ -49,8 +49,8 @@ class ClampedLinearGaussianPF(BaseParticleFilter):
         Particle filter configuration.
     A : Tensor, shape (n, n)
         State transition matrix.
-    B : Tensor, shape (n, k)
-        Control input matrix.
+    B : Optional[Tensor], shape (n, k)
+        Control input matrix. If None, no control input is used.
     Q : Tensor, shape (n, n)
         Covariance matrix of the process noise.
     mu_w : Optional[Tensor], shape (n,)
@@ -65,23 +65,26 @@ class ClampedLinearGaussianPF(BaseParticleFilter):
     def __init__(
         self,
         config: ClampedLinearGaussianPFConfig,
-        A: Tensor,
-        B: Tensor,
-        Q: Tensor,
+        A: Tensor = None,
+        B: Optional[Tensor] = None,
+        Q: Tensor = None,
         mu_w: Optional[Tensor] = None,
-        state_prior_mean: Optional[Tensor] = None,
-        state_prior_cov: Optional[Tensor] = None,
+        state_prior_mean: Tensor = None,
+        state_prior_cov: Tensor = None,
     ) -> None:
         super().__init__(config)
 
-        self.A = A.to(self.device)  # (n, n)
-        self.B = B.to(self.device)  # (n, k)
-        self.Q = Q.to(self.device)  # (n, n)
+        self.A = A.to(self.device) if A is not None else None  # (n, n)
+        self.Q = Q.to(self.device) if Q is not None else None  # (n, n)
         self.mu_w = (
             mu_w.to(self.device)
             if mu_w is not None
             else torch.zeros(Q.shape[0], device=self.device)
         )  # (n,)
+        self.B = B.to(self.device) if B is not None else None  # (n, k)
+
+        if self.A is None or self.Q is None:
+            raise ValueError("A and Q matrices must be provided.")
 
         # Prior distribution parameters
         self.state_prior_mean = (
@@ -165,6 +168,8 @@ class ClampedLinearGaussianPF(BaseParticleFilter):
             Bu = torch.zeros((M, N, n), device=device)
         else:
             control = control.to(device)
+            if self.B is None:
+                raise ValueError("Control input provided but B matrix is None.")
             if control.dim() == 1:
                 # (k,)
                 Bu_single = torch.matmul(self.B, control)  # (n,)

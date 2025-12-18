@@ -35,8 +35,8 @@ class ClampedLinearGaussianLAPFConfig(ClampedLinearGaussianPFConfig):
         Upper bound for observation clamping.
     """
 
-    observation_clamp_min: float = 0.0
-    observation_clamp_max: float = 5.0
+    observation_clamp_min: float
+    observation_clamp_max: float
 
 
 class ClampedLinearGaussianLAPF(ClampedLinearGaussianPF):
@@ -51,8 +51,8 @@ class ClampedLinearGaussianLAPF(ClampedLinearGaussianPF):
         Particle filter configuration.
     A : Tensor, shape (n, n)
         State transition matrix.
-    B : Tensor, shape (n, k)
-        Input matrix.
+    B : Optional[Tensor], shape (n, k)
+        Control input matrix. If None, no control input is used.
     Q : Tensor, shape (n, n)
         Covariance matrix of the process noise.
     mu_w : Optional[Tensor], shape (n,)
@@ -96,12 +96,12 @@ class ClampedLinearGaussianLAPF(ClampedLinearGaussianPF):
     def __init__(
         self,
         config: ClampedLinearGaussianLAPFConfig,
-        A: Tensor,
-        B: Tensor,
-        Q: Tensor,
+        A: Tensor = None,
+        B: Optional[Tensor] = None,
+        Q: Tensor = None,
         mu_w: Optional[Tensor] = None,
-        state_prior_mean: Optional[Tensor] = None,
-        state_prior_cov: Optional[Tensor] = None,
+        state_prior_mean: Tensor = None,
+        state_prior_cov: Tensor = None,
         C: Optional[Tensor] = None,
         R: Optional[Tensor] = None,
         mu_v: Optional[Tensor] = None,
@@ -253,6 +253,8 @@ class ClampedLinearGaussianLAPF(ClampedLinearGaussianPF):
         device = self.device
         C = self.C
         R = self.R
+        observation_clamp_min = self.config.observation_clamp_min
+        observation_clamp_max = self.config.observation_clamp_max
 
         p = C.shape[0]  # observation dimension
 
@@ -266,12 +268,12 @@ class ClampedLinearGaussianLAPF(ClampedLinearGaussianPF):
         std_exp = std.view(1, 1, p)  # (1, 1, p)
         y_phys_exp = y_phys.unsqueeze(1)  # (M, 1, p)
         y_min = (
-            torch.tensor(self.observation_clamp_min, device=device)
+            torch.tensor(observation_clamp_min, device=device)
             .view(1, 1, 1)
             .expand_as(y_phys_exp)
         )
         y_max = (
-            torch.tensor(self.observation_clamp_max, device=device)
+            torch.tensor(observation_clamp_max, device=device)
             .view(1, 1, 1)
             .expand_as(y_phys_exp)
         )
@@ -322,6 +324,8 @@ class ClampedLinearGaussianLAPF(ClampedLinearGaussianPF):
         device = self.device
         C_h = self.C_human
         R_h = self.R_human
+        y_min = self.config.observation_clamp_min
+        y_max = self.config.observation_clamp_max
 
         p_human = C_h.shape[0]  # human sensor dimension
         num_labels = human_label_probs.shape[-1]  # number of quantization labels
@@ -333,8 +337,6 @@ class ClampedLinearGaussianLAPF(ClampedLinearGaussianPF):
         std = torch.sqrt(torch.diag(R_h)).to(device)
 
         # Quantization thresholds in [y_min, y_max]
-        y_min = self.observation_clamp_min
-        y_max = self.observation_clamp_max
         thresholds = torch.linspace(y_min, y_max, num_labels + 1, device=device)[
             1:num_labels
         ]
@@ -360,7 +362,7 @@ class ClampedLinearGaussianLAPF(ClampedLinearGaussianPF):
 
         # Bin probabilities p(q = ℓ | x): difference of neighboring CDFs
         # Result: (M, N, p_human, num_labels)
-        prob_q_given_x = cdf[..., 1:] - cdf[..., :-1]
+        prob_q_given_x = cdf[..., 1:] - cdf[..., :num_labels]
         prob_q_given_x = torch.clamp(prob_q_given_x, min=1e-8)
 
         # human_label_probs: (M, p_human, num_labels) = p(q | s)
