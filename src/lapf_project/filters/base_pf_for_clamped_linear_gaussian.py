@@ -1,4 +1,4 @@
-# src/lapf_project/filters/base_pf_for_canal.py
+# src/lapf_project/filters/base_pf_for_clamped_linear_gaussian.py
 
 from dataclasses import dataclass
 from typing import Optional, Tuple
