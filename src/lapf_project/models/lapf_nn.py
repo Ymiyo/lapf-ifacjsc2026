@@ -32,12 +32,13 @@ class LAPF_nn(nn.Module):
         super().__init__()
         self.encoder = encoder
         self.head = head
+        self.softmax = nn.Softmax()
 
     def forward(self, text_list: List[str]) -> Tensor:
         # (N, hidden_dim)
         h = self.encoder.encode(text_list)
         logits = self.head(h)
-        return logits
+        return self.softmax(logits)
 
 
 def load_classifier_model(
