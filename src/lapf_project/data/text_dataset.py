@@ -10,7 +10,7 @@ from torch import Tensor
 def water_level_to_class(water_level: int, num_labels: int) -> int:
     if water_level == 100:
         return num_labels - 1
-    return water_level // (100 // num_labels)
+    return int(water_level // (100 / num_labels))
 
 
 def data_to_pairs_for_LAPF(
