@@ -261,6 +261,8 @@ def main() -> None:
         width=0.2,
     )
 
+    plt.show()
+
     # Save figure next to checkpoints for reproducibility
     root = Path(__file__).resolve().parents[3]
     result_dir = root / "results" / "lapf_vs_edapf_under_out-of-domain"
