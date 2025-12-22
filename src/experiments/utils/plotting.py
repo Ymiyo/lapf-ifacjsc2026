@@ -31,7 +31,9 @@ def plot_hist(
             alpha=0.55,
             color=color,
         )
-
+    if method_num > 5:
+        ax.set_xlim(1 - mid - width / 2 - 0.2, x_dim + mid + width / 2 + 1.0)
+    ax.set_xticks(np.arange(1, x_dim + 1, 1))
     ax.set_xlabel("Location")
     ax.set_ylabel("MSE")
     ax.legend()
