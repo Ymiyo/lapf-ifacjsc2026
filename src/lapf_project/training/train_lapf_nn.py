@@ -1,6 +1,6 @@
 # src/lapf_project/training/train_lapf_nn.py
-# cd src
-# python -m lapf_project.training.train_lapf_nn
+# cd lapf-ifacjsc2026
+# python -m src.lapf_project.training.train_lapf_nn
 
 import argparse
 from pathlib import Path
@@ -10,7 +10,7 @@ import torch
 import torch.nn.functional as F
 from torch.optim import Adam
 
-from ..data.text_dataset import data_to_pairs, pairs_to_batches
+from ..data.text_dataset import data_to_pairs_for_LAPF, pairs_to_batches
 from ..data.text_templates import TRAIN_DATA, VAL_DATA
 from ..models.lapf_nn import ClassifierHead
 from ..models.sentence_encoder import get_sentence_encoder
@@ -45,8 +45,8 @@ def train_lapf_nn() -> None:
     # 1. Prepare data: (class_id, text) pairs
     # -------------------------------------------------------
     # TRAIN_DATA, VAL_DATA are list[dict] loaded in text_templates.py
-    train_pairs = data_to_pairs(TRAIN_DATA, num_labels)
-    val_pairs = data_to_pairs(VAL_DATA, num_labels)
+    train_pairs = data_to_pairs_for_LAPF(TRAIN_DATA, num_labels)
+    val_pairs = data_to_pairs_for_LAPF(VAL_DATA, num_labels)
 
     num_train_samples = len(train_pairs)
     num_val_samples = len(val_pairs)
