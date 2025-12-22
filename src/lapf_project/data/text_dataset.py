@@ -13,7 +13,7 @@ def water_level_to_class(water_level: int, num_labels: int) -> int:
     return water_level // (100 // num_labels)
 
 
-def data_to_pairs(
+def data_to_pairs_for_LAPF(
     data: List[Dict],
     num_labels: int,
 ) -> List[Tuple[int, str]]:
@@ -25,6 +25,20 @@ def data_to_pairs(
 
         cls = water_level_to_class(water_level, num_labels)
         pair_set.add((cls, text))
+
+    return list(pair_set)
+
+
+def data_to_pairs_for_EDAPF(
+    data: List[Dict],
+) -> List[Tuple[int, str]]:
+    pair_set = set()  # type: set[Tuple[int, str]]
+
+    for d in data:
+        water_level = int(d["water_level"])
+        text = d["text"]
+
+        pair_set.add((water_level, text))
 
     return list(pair_set)
 
@@ -53,7 +67,7 @@ def pairs_to_batches(
 
     Returns
     -------
-    batches : list of (labels, texts)
+    batches : list of (labels or levels, texts)
         labels : Tensor, shape (B,), on `device`
         texts  : list of str, length B
     """
@@ -70,9 +84,11 @@ def pairs_to_batches(
         idx_slice = indices[start : start + batch_size]
         samples = [pairs[i] for i in idx_slice]
 
-        labels = torch.tensor([s[0] for s in samples], dtype=torch.long, device=device)
-        texts = [s[1] for s in samples]
+        batch = (
+            torch.tensor([s[0] for s in samples], device=device),
+            [s[1] for s in samples],
+        )
 
-        batches.append((labels, texts))
+        batches.append(batch)
 
     return batches

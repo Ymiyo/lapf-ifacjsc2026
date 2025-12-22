@@ -1,38 +1,36 @@
-# src/lapf_project/training/train_lapf_nn.py
+# src/lapf_project/training/train_edapf_nn.py
 # cd lapf-ifacjsc2026
-# python -m src.lapf_project.training.train_lapf_nn
+# python -m src.lapf_project.training.train_edapf_nn
 
 import argparse
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import torch
+import torch.nn as nn
 import torch.nn.functional as F
 from torch.optim import Adam
 
-from ..data.text_dataset import data_to_pairs_for_LAPF, pairs_to_batches
+from ..data.text_dataset import data_to_pairs_for_EDAPF, pairs_to_batches
 from ..data.text_templates import TRAIN_DATA, VAL_DATA
-from ..models.lapf_nn import ClassifierHead
+from ..models.edapf_nn import PredictionHead
 from ..models.sentence_encoder import get_sentence_encoder
 
 
-def train_lapf_nn() -> None:
+def train_edapf_nn() -> None:
     # -------------------------------------------------------
     # 0. Hyperparameters & setup
     # -------------------------------------------------------
     ap = argparse.ArgumentParser()
-    ap.add_argument("--labels", type=int, default=5)
     ap.add_argument("--epochs", type=int, default=100)
     ap.add_argument("--batch-size", type=int, default=16)
     ap.add_argument("--lr", type=float, default=1e-5)
     args = ap.parse_args()
 
-    num_labels: int = args.labels  # LABEL_NUM: adjust to your setting
     batch_size: int = args.batch_size
     num_epochs: int = args.epochs
     learning_rate: float = args.lr
 
-    print(f"Number of labels: {num_labels}")
     print(f"Number of epochs: {num_epochs}")
     print(f"Batch size: {batch_size}")
     print(f"Learning rate: {learning_rate}")
@@ -45,8 +43,8 @@ def train_lapf_nn() -> None:
     # 1. Prepare data: (class_id, text) pairs
     # -------------------------------------------------------
     # TRAIN_DATA, VAL_DATA are list[dict] loaded in text_templates.py
-    train_pairs = data_to_pairs_for_LAPF(TRAIN_DATA, num_labels)
-    val_pairs = data_to_pairs_for_LAPF(VAL_DATA, num_labels)
+    train_pairs = data_to_pairs_for_EDAPF(TRAIN_DATA)
+    val_pairs = data_to_pairs_for_EDAPF(VAL_DATA)
 
     num_train_samples = len(train_pairs)
     num_val_samples = len(val_pairs)
@@ -61,7 +59,7 @@ def train_lapf_nn() -> None:
     encoder = get_sentence_encoder(device=device)
 
     # Trainable classification head
-    head = ClassifierHead(input_dim=768, output_dim=num_labels).to(device)
+    head = PredictionHead(input_dim=768).to(device)
 
     optimizer = Adam(head.parameters(), lr=learning_rate)
 
@@ -70,7 +68,6 @@ def train_lapf_nn() -> None:
     # -------------------------------------------------------
     train_loss_list = []
     val_loss_list = []
-    val_acc_list = []
 
     for epoch in range(1, num_epochs + 1):
         # -------------------------
@@ -87,26 +84,27 @@ def train_lapf_nn() -> None:
 
         train_loss_sum = 0.0
 
-        for labels, texts in train_batches:
-            # labels: Tensor (B,), on `device`
+        for levels, texts in train_batches:
+            # levels: Tensor (B,), on `device`
             # texts : List[str], length B
 
             # 1) Encode texts with frozen Sentence-BERT
             with torch.no_grad():
                 embeddings = encoder.encode(texts)  # (B, hidden_dim)
 
-            # 2) Forward through classification head
+            # 2) Forward through prediction head
             logits = head(embeddings)
+            preds_y = nn.Sigmoid()(logits) * 100
 
             # 3) Compute loss
-            loss = F.cross_entropy(logits, labels)
+            loss = F.mse_loss(preds_y, levels.float())
 
             # 4) Backprop (only head parameters are updated)
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
 
-            train_loss_sum += loss.item() * labels.size(0)
+            train_loss_sum += loss.item() * levels.size(0)
 
         train_loss = train_loss_sum / num_train_samples
         train_loss_list.append(train_loss)
@@ -125,26 +123,21 @@ def train_lapf_nn() -> None:
         )
 
         val_loss_sum = 0.0
-        correct = 0
 
         with torch.no_grad():
-            for labels, texts in val_batches:
+            for levels, texts in val_batches:
                 embeddings = encoder.encode(texts)
                 logits = head(embeddings)
-                loss = F.cross_entropy(logits, labels)
+                preds_y = torch.sigmoid(logits) * 100
+                loss = F.mse_loss(preds_y, levels.float())
 
-                val_loss_sum += loss.item() * labels.size(0)
-
-                preds = torch.argmax(logits, dim=1)
-                correct += (preds == labels).sum().item()
+                val_loss_sum += loss.item() * levels.size(0)
 
         val_loss = val_loss_sum / num_val_samples
-        val_acc = correct / num_val_samples
 
         val_loss_list.append(val_loss)
-        val_acc_list.append(val_acc)
 
-        print(f"[Epoch {epoch:03d}] val_loss = {val_loss:.6f}, val_acc = {val_acc:.4f}")
+        print(f"[Epoch {epoch:03d}] val_loss = {val_loss:.6f}")
 
     # -------------------------------------------------------
     # 4. Plot training curves
@@ -157,19 +150,9 @@ def train_lapf_nn() -> None:
     ax1.set_ylabel("Train Loss")
 
     ax2 = fig.add_subplot(2, 1, 2)
-    (line1,) = ax2.plot(val_loss_list, label="Val Loss", c="green")
+    ax2.plot(val_loss_list, c="green")
     ax2.set_xlabel("Epoch")
     ax2.set_ylabel("Val Loss")
-
-    ax3 = ax2.twinx()
-    (line2,) = ax3.plot(val_acc_list, label="Val Acc", c="red")
-    ax3.set_ylabel("Val Acc")
-    ax3.set_ylim(0.0, 1.0)
-
-    # combine legends
-    lines = [line1, line2]
-    labels = [line.get_label() for line in lines]
-    ax2.legend(lines, labels, loc="upper right")
 
     plt.tight_layout()
 
@@ -178,11 +161,11 @@ def train_lapf_nn() -> None:
     checkpoint_dir = (
         root
         / "checkpoints"
-        / f"lapf_nn-lb{num_labels}-ep{num_epochs}-bs{batch_size}-lr{learning_rate}"
+        / f"edapf_nn-ep{num_epochs}-bs{batch_size}-lr{learning_rate}"
     )
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
-    fig_path = checkpoint_dir / "lapf_nn_training_curves.png"
+    fig_path = checkpoint_dir / "edapf_nn_training_curves.png"
     fig.savefig(fig_path)
     print(f"Saved training curves to: {fig_path}")
 
@@ -195,11 +178,11 @@ def train_lapf_nn() -> None:
     original_state_dict = head.state_dict()
     state_dict = {key: value.cpu() for key, value in original_state_dict.items()}
 
-    checkpoint_path = checkpoint_dir / "lapf_nn_head.pt"
+    checkpoint_path = checkpoint_dir / "edapf_nn_head.pt"
 
     torch.save(state_dict, checkpoint_path)
     print(f"Saved classifier head checkpoint to: {checkpoint_path}")
 
 
 if __name__ == "__main__":
-    train_lapf_nn()
+    train_edapf_nn()
