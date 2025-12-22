@@ -278,3 +278,127 @@ def simulate_plant_and_human(
     )
 
     return X_true, text_list
+
+
+def simulate_plant_and_human_under_out_of_domain(
+    A: Tensor = None,
+    B: Optional[Tensor] = None,
+    control: Optional[Tensor] = None,
+    Q: Tensor = None,
+    mu_w: Optional[Tensor] = None,
+    C_human: Tensor = None,
+    R_human: Tensor = None,
+    mu_v_human: Optional[Tensor] = None,
+    M: int = None,
+    T: int = None,
+    x_min: float = None,
+    x_max: float = None,
+    y_min: float = None,
+    y_max: float = None,
+    init_x: Optional[float] = None,
+    seed_system: int = 42,
+    out_of_domain_threshold: float = 0.2,
+    out_of_domain_text: str = "ミジ、ナランサー！",  # "There's barely any water out here!" in Okinawa dialect
+) -> Tuple[Tensor, Tensor]:
+    """
+    Simulate the true plant and human sensor trajectories.
+
+    Parameters
+    ----------
+    A, B, control, Q, mu_w, C_human, R_human, mu_v_human : Tensors
+        System and noise matrices (already on the desired device).
+    M : int
+        Batch size (number of Monte Carlo runs).
+    T : int
+        Number of time steps.
+    x_min : float
+        Minimum value for state x.
+    x_max : float
+        Maximum value for state x.
+    y_min : float
+        Minimum value for cognitive output y.
+    y_max : float
+        Maximum value for cognitive output y.
+    init_x : Optional[float]
+        Initial state value for all entries. If None, sampled uniformly from [x_min, x_max].
+    seed_system : int
+        Random seed for system and sensor noise.
+    out_of_domain_threshold : float
+        Threshold below which the cognitive output is considered out-of-domain.
+    out_of_domain_text : str
+        Text to use for out-of-domain cognitive outputs.
+
+    Returns
+    -------
+    X_true : Tensor, shape (T, M, n)
+        True state trajectories (on A.device).
+    text_list : list of str
+        Generated text from the human sensor.
+    """
+    if A is None or Q is None:
+        raise ValueError("A and Q matrices must be provided.")
+
+    device = A.device  # use the device of system matrices as the source of truth
+
+    n = A.shape[0]
+    p_human = C_human.shape[0]
+
+    torch.manual_seed(seed_system)
+
+    if mu_w is None:
+        mu_w = torch.zeros(n, device=device)
+    W = MultivariateNormal(mu_w.to(device), Q.to(device)).sample((T, M))  # (T, M, n)
+
+    if mu_v_human is None:
+        mu_v_human = torch.zeros(p_human, device=device)
+    V_human = MultivariateNormal(mu_v_human.to(device), R_human.to(device)).sample(
+        (T, M)
+    )  # (T, M, p_human)
+
+    plant = PlantSystem(A, B)
+    sensor = HumanSensor(C_human)
+
+    X_true = torch.zeros(T, M, n, device=device)
+    Y_human = torch.zeros(T, M, p_human, device=device)
+
+    # Initial state x_0
+    if init_x is None:
+        init_x = x_min + (x_max - x_min) * torch.rand(1).item()
+    X_true[0, :, :] = torch.full((M, n), init_x, device=device)
+
+    for t in range(1, T):
+        X_true[t, :, :] = plant.get_next_state(
+            X_true[t - 1, :, :],
+            control,
+            W[t - 1, :, :],
+            x_min,
+            x_max,
+        )
+        Y_human[t, :, :] = sensor.cognitive_module(
+            X_true[t, :, :],
+            V_human[t, :, :],
+            y_min,
+            y_max,
+        )
+
+    out_of_domain_index = []
+    for t in range(T):
+        for m in range(M):
+            for p in range(p_human):
+                if Y_human[t, m, p] < out_of_domain_threshold:
+                    out_of_domain_index.append((t, m, p))
+
+    text_list = sensor.expression_module(
+        Y_human,
+        TEST_DICT,
+        y_min,
+        y_max,
+    )
+
+    for t, m, p in out_of_domain_index:
+        index = t * M * p_human + m * p_human + p
+        text_list[index] = (
+            out_of_domain_text  # "There's barely any water out here!" in Okinawa dialect
+        )
+
+    return X_true, text_list
