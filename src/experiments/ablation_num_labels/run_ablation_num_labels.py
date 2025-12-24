@@ -11,14 +11,10 @@ from torch import inference_mode
 from ...lapf_project.filters.lapf_for_clamped_linear_gaussian import (
     ClampedLinearGaussianLAPFConfig,
 )
-from ...lapf_project.models.edapf_nn import (
-    compute_mse_on_val_set,
-    load_prediction_model,
-)
 from ...lapf_project.models.lapf_nn import load_classifier_model
 from ..utils.ground_truth import simulate_plant_and_human
 from ..utils.plotting import plot_hist
-from ..utils.run_filters import run_edapf, run_lapf, run_no_observation
+from ..utils.run_filters import run_lapf
 from ..utils.stats import (
     compute_mean_and_covariance,
     compute_mean_and_std_of_mse_by_state,
